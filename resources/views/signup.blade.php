@@ -20,6 +20,9 @@
         <label for="">First Name</label>
         <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" value="{{old('fname')}}" required> <br>
 
+        <label for="">Middel Name</label>
+        <input type="text" id="mname" name="mname" placeholder="Enter Your Middle Name" value="{{old('fname')}}" required> <br>
+
         <label for="">Last Name</label>
         <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" value="{{old('lname')}}"  required><br>
 
