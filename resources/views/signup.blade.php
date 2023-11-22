@@ -23,6 +23,9 @@
         <label for="">Middel Name</label>
         <input type="text" id="mname" name="mname" placeholder="Enter Your Middle Name" value="{{old('fname')}}" required> <br>
 
+        <label for="">Grand Father Name</label>
+        <input type="text" id="mname" name="mname" placeholder="Enter Your Grand Father" value="{{old('fname')}}" required> <br>
+
         <label for="">Last Name</label>
         <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" value="{{old('lname')}}"  required><br>
 
