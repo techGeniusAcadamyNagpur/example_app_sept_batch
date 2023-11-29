@@ -20,3 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('welcome', [ApiController::class,'Welcome']);
+Route::get('all-users-data', [ApiController::class,'AllUsersList']);
+Route::post('signup', [ApiController::class,'Signup']);
+
+//otp apis
+Route::post('send-otp', [ApiController::class,'SendOtp']);
+Route::post('verify-otp', [ApiController::class,'VerifyOtp']);
