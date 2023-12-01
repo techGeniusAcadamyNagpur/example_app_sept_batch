@@ -7,6 +7,7 @@ use DB;
 use Validator;
 use Hash;
 use Str;
+use Twilio\Rest\Client;
 
 class ApiController extends Controller
 {
@@ -160,6 +161,17 @@ class ApiController extends Controller
 
         //third party api code start
 
+                // $sid    = "AC01aff4cc258821fcb44b63dd61a3b6de";
+                // $token  = "95a14b2b7aa580d67079a623ca634f70";
+                // $twilio = new Client($sid, $token);
+
+                // $message = $twilio->messages
+                // ->create("+".$countryCode.$mobileNo, // to
+                //     array(
+                //     "from" => "+12164555372",
+                //     "body" => "Hi, welcome Johns GYM your OTP is ".$otp
+                //     )
+                // );
 
         //third party api code end
 
@@ -171,7 +183,7 @@ class ApiController extends Controller
         if($store_otp){
 
             $final_data=array();
-            $final_data['otp']=$otp;
+            //$final_data['otp']=$otp;
             $final_data['otpToken']=$otp_token;
 
             $data['status']=200;
