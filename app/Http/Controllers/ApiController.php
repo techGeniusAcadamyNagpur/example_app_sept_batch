@@ -134,7 +134,7 @@ class ApiController extends Controller
                 $reciverEmail = $email;
                 $reciverName = $fname;
                 $subject = "Your signup was successful";
-                $body = "<html><head></head><body><p>Hello,</p><h1 style='color:green'>Welcome ".$fname." to our platform.</h1></p></body></html";
+                $body = "<html><head></head><body><p>Hello,</p><h1 style='color:green'>Welcome " . $fname . " to our platform.</h1></p></body></html";
 
                 $send_sms = $this->SendEmail($reciverEmail, $reciverName, $subject, $body);
 
@@ -342,6 +342,16 @@ class ApiController extends Controller
         curl_close($curl);
 
         // Handle the response as needed
+        $decode = json_decode($response);
+
+        $messageId = $decode->messageId;
+
+        $created_at = date("Y-m-d h:i:s");
+        $updated_at = date("Y-m-d h:i:s");
+
+        $insert_log = DB::insert("CALL add_message_log(?,?,?)", array($messageId, $created_at, $updated_at));
+        //dd($messageId);exit;
+
         // You can check $response and handle any errors or process the response accordingly
 
     }
