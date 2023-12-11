@@ -130,10 +130,11 @@ class ApiController extends Controller
                 } catch (\Exception $e) {
                     //skip
                 }
-
+                
+                // send email
                 $reciverEmail = $email;
                 $reciverName = $fname;
-                $subject = "Your signup was successful";
+                $subject = "Your signup was successful for out platform ";
                 $body = "<html><head></head><body><p>Hello,</p><h1 style='color:green'>Welcome " . $fname . " to our platform.</h1></p></body></html";
 
                 $send_sms = $this->SendEmail($reciverEmail, $reciverName, $subject, $body);

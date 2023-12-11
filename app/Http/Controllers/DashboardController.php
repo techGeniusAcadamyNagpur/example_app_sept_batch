@@ -97,4 +97,46 @@ class DashboardController extends Controller
             return redirect(url('login'))->with('fail', 'you need to login first to discover/access dashboard');
         }
     }
+
+    public function SendEmailDashbard()
+    {
+        if (Auth::check()) {
+            return view('send_offer');
+        } else {
+            return redirect(url('login'))->with('fail', 'you need to login first to discover/access dashboard');
+        }
+    }
+
+    public function SendOffer(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        $title = $request->input('title');
+        $description = $request->input('description');
+
+        //query to get users
+        $users_data = DB::select("CALL get_all_users_data()");
+
+        foreach($users_data as $user){
+            $user_email=$user->email;
+            $user_fname=$user->name;
+
+            // send email
+            $reciverEmail = $user_email;
+            $reciverName = $user_fname;
+            $subject = $title;
+            $body = $description;
+
+            $send_sms = (new ApiController())->SendEmail($reciverEmail, $reciverName, $subject, $body);
+        }
+        //dd($users_data);
+
+
+
+        return redirect(url('send_offer_dashboard'))->with('success', 'email sent successfully');
+        
+    }
 }

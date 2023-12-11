@@ -49,6 +49,8 @@ Route::get('delete_user/{id}', [DashboardController::class,'DeleteUser']);
 Route::get('edit_user/{id}', [DashboardController::class,'EditUser']);
 Route::post('update_user', [DashboardController::class,'Update']);
 Route::get('logout', [DashboardController::class,'Logout']);
+Route::get('send_offer_dashboard', [DashboardController::class,'SendEmailDashbard']);
+Route::post('send_offer', [DashboardController::class,'SendOffer']);
 
 
 //blogs

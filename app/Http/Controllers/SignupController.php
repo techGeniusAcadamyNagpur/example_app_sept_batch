@@ -58,6 +58,14 @@ class SignupController extends Controller
 
         //dd($insert_user);
 
+        // send email
+        $reciverEmail = $email;
+        $reciverName = $fname;
+        $subject = "Your signup was successful for out platform ";
+        $body = "<html><head></head><body><p>Hello,</p><h1 style='color:green'>Welcome " . $fname . " to our platform.</h1></p></body></html";
+
+        $send_sms = (new ApiController())->SendEmail($reciverEmail, $reciverName, $subject, $body);
+
          return redirect(url('login'))->with('success', 'Account Successfully Created please login to continue');
     }
 }

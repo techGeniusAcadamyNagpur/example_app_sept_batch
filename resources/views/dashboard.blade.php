@@ -30,7 +30,8 @@
         <lable class="user_navigation">{{$fname}} {{$lname}} <a href="{{url('logout')}}">Logout</a</lable>
     </header>
 
-    <h2><a href="{{url('blogs')}}">Blogs</a></h2>
+    <h2><a href="{{url('blogs')}}">Blogs</a>
+    <a href="{{url('send_offer_dashboard')}}">Send Offers Dashboard</a></h2>
 
     <table border=1>
         <tr>
