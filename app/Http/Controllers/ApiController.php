@@ -357,4 +357,64 @@ class ApiController extends Controller
 
     }
 
+    public function ImportColors(Request $request){
+        $validator = Validator::make($request->all(), [
+        
+        ]);
+        if ($validator->fails()) {
+
+            $errors = "";
+            foreach ($validator->messages()->getMessages() as $field_name => $messages) {
+                // Go through each message for this field.
+                foreach ($messages as $message) {
+                    $errors .= $message;
+                    $data['message'] = $errors;
+                }
+            }
+            $data['status'] = 400;
+            $data['data'] = (object) [];
+        } else {
+            //main logic
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://reqres.in/api/unknown',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            // Handle the response as needed
+            $decode = json_decode($response);
+            
+
+            $colors=$decode->data;
+            //print_r($colors);exit;
+
+            
+            foreach($colors as $color){
+                $color_id=$color->id;
+                $name=$color->name;
+                $color_code=$color->color;
+
+                $insert_color = DB::insert("CALL insert_color(?,?,?)", array($color_id, $name, $color_code));
+            }
+
+
+            $data['status'] = 200;
+            $data['message'] = "Successful";
+            $data['data'] = (object) [];
+        }
+        return response()->json($data);
+    }
+
 }

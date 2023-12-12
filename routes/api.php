@@ -26,3 +26,6 @@ Route::post('signup', [ApiController::class,'Signup']);
 //otp apis
 Route::post('send-otp', [ApiController::class,'SendOtp']);
 Route::post('verify-otp', [ApiController::class,'VerifyOtp']);
+
+//import colours
+Route::post('import-colors', [ApiController::class,'ImportColors']);
