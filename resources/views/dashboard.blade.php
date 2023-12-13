@@ -55,7 +55,29 @@
     </table>
 
 
+    <h1>Calculator</h1>
+    <h2>Addition</h2>
+    <form action="">
+        <input type="text" name="value1" id="value1" placeholder="enter value1" value=""> +
+        <input type="text" name="value2" id="value2" placeholder="enter value2" value="">
+        <input type="button" value="add" onClick="addition()">
+        <p id="result"></p>
+    </form>
+
 
 
 </body>
 </html>
+
+<script>
+
+    function addition() {
+        var value_one=document.getElementById('value1').value;
+        var value_two=document.getElementById('value2').value;
+
+        var result=parseInt(value_one)+parseInt(value_two);
+
+        document.getElementById("result").innerHTML = result;
+        //alert(result);
+    }
+</script>
