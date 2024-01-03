@@ -64,3 +64,15 @@ Route::controller(GoogleController::class)->group(function(){
     Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
     Route::get('auth/google/callback', 'handleGoogleCallback');
 });
+
+Route::get('/layout', function () {
+    return view('layout');
+});
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/cars', function () {
+    return view('cars');
+});

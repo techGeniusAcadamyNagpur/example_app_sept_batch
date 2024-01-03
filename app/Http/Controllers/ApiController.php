@@ -130,7 +130,7 @@ class ApiController extends Controller
                 } catch (\Exception $e) {
                     //skip
                 }
-                
+
                 // send email
                 $reciverEmail = $email;
                 $reciverName = $fname;
@@ -357,9 +357,10 @@ class ApiController extends Controller
 
     }
 
-    public function ImportColors(Request $request){
+    public function ImportColors(Request $request)
+    {
         $validator = Validator::make($request->all(), [
-        
+
         ]);
         if ($validator->fails()) {
 
@@ -379,14 +380,14 @@ class ApiController extends Controller
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://reqres.in/api/unknown',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_URL => 'https://reqres.in/api/unknown',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
             ));
 
             $response = curl_exec($curl);
@@ -395,24 +396,60 @@ class ApiController extends Controller
 
             // Handle the response as needed
             $decode = json_decode($response);
-            
 
-            $colors=$decode->data;
+            $colors = $decode->data;
             //print_r($colors);exit;
 
-            
-            foreach($colors as $color){
-                $color_id=$color->id;
-                $name=$color->name;
-                $color_code=$color->color;
+            foreach ($colors as $color) {
+                $color_id = $color->id;
+                $name = $color->name;
+                $color_code = $color->color;
 
                 $insert_color = DB::insert("CALL insert_color(?,?,?)", array($color_id, $name, $color_code));
             }
 
-
             $data['status'] = 200;
             $data['message'] = "Successful";
             $data['data'] = (object) [];
+        }
+        return response()->json($data);
+    }
+
+    public function GetUserDetailsByName(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required',
+        ]);
+        if ($validator->fails()) {
+
+            $errors = "";
+            foreach ($validator->messages()->getMessages() as $field_name => $messages) {
+                // Go through each message for this field.
+                foreach ($messages as $message) {
+                    $errors .= $message;
+                    $data['message'] = $errors;
+                }
+            }
+            $data['status'] = 400;
+            $data['data'] = (object) [];
+        } else {
+            //main logic
+
+            $fname = $request->input('fname');
+
+            $user_details = DB::select("CALL get_user_by_name(?)", array($fname));
+
+            if (count($user_details) > 0) {
+
+                $data['status'] = 200;
+                $data['message'] = "User Found yahhhh";
+                $data['data'] = $user_details[0];
+            } else {
+                $data['status'] = 400;
+                $data['message'] = " User not found Nooo";
+                $data['data'] = "";
+            }
+
         }
         return response()->json($data);
     }

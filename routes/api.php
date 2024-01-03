@@ -29,3 +29,6 @@ Route::post('verify-otp', [ApiController::class,'VerifyOtp']);
 
 //import colours
 Route::post('import-colors', [ApiController::class,'ImportColors']);
+
+//user
+Route::post('user-detail', [ApiController::class,'GetUserDetailsByName']);
